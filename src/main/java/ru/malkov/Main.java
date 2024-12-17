@@ -73,33 +73,14 @@ public class Main {
     }
 
     public void testGasStationAnalyzer() {
-        List<String> inputData = Arrays.asList(
-                "Синойл Цветочная 95 59",
-                "Роснефть Ленина 92 60",
-                "Лукойл Пушкина 95 58",
-                "Газпром Проспект 98 62",
-                "Синойл Цветочная 92 57",
-                "Роснефть Ленина 98 61",
-                "Лукойл Пушкина 92 57",
-                "Газпром Проспект 95 59"
-        );
-
-        IGasStationAnalyzer analyzer = new GasStationAnalyzer();
-
-        for (String input : inputData) {
-            String[] parts = input.split(" ");
-            String company = parts[0];
-            String street = parts[1];
-            int grade = Integer.parseInt(parts[2]);
-            int price = Integer.parseInt(parts[3]);
-
-            analyzer.addGasStation(company, street, grade, price);
+        try {
+            GasStationAnalyzer analyzer = new GasStationAnalyzer();
+            analyzer.loadFromFile("/home/vanish/IdeaProjects/lab5/src/main/java/ru/malkov/GasStation.txt");
+            int[] counts = analyzer.getCheapestCounts();
+            System.out.println("Самый дешёвый бензин: 92=" + counts[0] + ", 95=" + counts[1] + ", 98=" + counts[2]);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        int[] result = analyzer.getCheapestCounts();
-        System.out.println("Количество АЗС, продающих дешевле всего 92-й бензин: " + result[0]);
-        System.out.println("Количество АЗС, продающих дешевле всего 95-й бензин: " + result[1]);
-        System.out.println("Количество АЗС, продающих дешевле всего 98-й бензин: " + result[2]);
     }
 
     public void testLetterCounter() {

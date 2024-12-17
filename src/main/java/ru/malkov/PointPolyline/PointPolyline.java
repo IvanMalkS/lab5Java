@@ -9,9 +9,9 @@ public class PointPolyline implements IPointPolyline {
     @Override
     public List<Point> processPoints(List<Point> points) {
         return points.stream()
-                .distinct()
                 .sorted(Comparator.comparingDouble(Point::getX))
                 .map(p -> new Point(p.getX(), Math.abs(p.getY())))
+                .distinct()
                 .collect(Collectors.toList());
     }
 

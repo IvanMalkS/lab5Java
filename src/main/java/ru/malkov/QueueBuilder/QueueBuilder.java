@@ -4,11 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-public class QueueBuilder {
-    public Deque<Integer> buildQueue(List<Integer> list) {
-        Deque<Integer> queue = new ArrayDeque<>();
+public class QueueBuilder<T> implements IQueueBuilder<T> {
+    @Override
+    public Deque<T> buildQueue(List<T> list) {
+        Deque<T> queue = new ArrayDeque<>();
 
-        for (Integer element : list) {
+        for (T element : list) {
             queue.addLast(element);
         }
 
@@ -24,4 +25,3 @@ public class QueueBuilder {
         return "Queue Builder";
     }
 }
-

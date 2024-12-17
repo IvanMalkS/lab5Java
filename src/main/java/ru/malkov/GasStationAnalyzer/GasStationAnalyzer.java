@@ -1,5 +1,8 @@
 package ru.malkov.GasStationAnalyzer;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +34,22 @@ public class GasStationAnalyzer implements IGasStationAnalyzer {
     @Override
     public int[] getCheapestCounts() {
         return new int[]{counts.get(92), counts.get(95), counts.get(98)};
+    }
+
+    public void loadFromFile(String filePath) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (parts.length == 4) {
+                    String company = parts[0].trim();
+                    String street = parts[1].trim();
+                    int grade = Integer.parseInt(parts[2].trim());
+                    int price = Integer.parseInt(parts[3].trim());
+                    addGasStation(company, street, grade, price);
+                }
+            }
+        }
     }
 
     @Override
