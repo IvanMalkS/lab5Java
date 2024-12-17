@@ -1,40 +1,35 @@
 package ru.malkov.Fraction;
 
-public class Fraction  implements IFraction {
+public class Fraction implements IFraction {
     private int numerator;
     private int denominator;
-    private Double cachedValue;
 
     public Fraction(int numerator, int denominator) {
         if (denominator == 0) {
-            throw new IllegalArgumentException("Denominator cannot be zero.");
+            throw new IllegalArgumentException("Denominator cannot be zero");
         }
         if (denominator < 0) {
-            this.numerator = -numerator;
-            this.denominator = -denominator;
-        } else {
-            this.numerator = numerator;
-            this.denominator = denominator;
+            numerator = -numerator;
+            denominator = -denominator;
         }
-        this.cachedValue = null;
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
 
-    public int getNumerator() {
-        return numerator;
+    @Override
+    public double toDouble() {
+        return (double) numerator / denominator;
     }
 
+    @Override
     public void setNumerator(int numerator) {
         this.numerator = numerator;
-        this.cachedValue = null;
     }
 
-    public int getDenominator() {
-        return denominator;
-    }
-
+    @Override
     public void setDenominator(int denominator) {
         if (denominator == 0) {
-            throw new IllegalArgumentException("Denominator cannot be zero.");
+            throw new IllegalArgumentException("Denominator cannot be zero");
         }
         if (denominator < 0) {
             this.numerator = -this.numerator;
@@ -42,14 +37,6 @@ public class Fraction  implements IFraction {
         } else {
             this.denominator = denominator;
         }
-        this.cachedValue = null;
-    }
-
-    public double getRealValue() {
-        if (cachedValue == null) {
-            cachedValue = (double) numerator / denominator;
-        }
-        return cachedValue;
     }
 
     @Override
@@ -59,14 +46,10 @@ public class Fraction  implements IFraction {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Fraction fraction = (Fraction) obj;
-        return numerator == fraction.numerator && denominator == fraction.denominator;
-    }
-
-    @Override
-    public int hashCode() {
-        return 31 * numerator + denominator;
+        if (this == obj) {
+            return true;
+        }
+        Fraction other = (Fraction) obj;
+        return (this.numerator == other.numerator) && (this.denominator == other.denominator);
     }
 }
