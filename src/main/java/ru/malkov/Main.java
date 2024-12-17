@@ -1,10 +1,12 @@
 package ru.malkov;
 
 import ru.malkov.Cat.Cat;
+import ru.malkov.Cat.MeowCountDecorator;
 import ru.malkov.Cat.Meowable;
 import ru.malkov.Cat.MeowableCat;
 import ru.malkov.CommonList.CommonList;
 import ru.malkov.Fraction.Fraction;
+import ru.malkov.Fraction.FractionFactory;
 import ru.malkov.Fraction.IFraction;
 import ru.malkov.GasStationAnalyzer.GasStationAnalyzer;
 import ru.malkov.GasStationAnalyzer.IGasStationAnalyzer;
@@ -48,15 +50,26 @@ public class Main {
     }
 
     public void testCatMeow() {
-        Meowable cat1 = new Cat("Мурзик");
-        Meowable cat2 = new Cat("Барсик");
-        Meowable cat3 = new Cat("Пушок");
 
-        MeowableCat.makeAllMeow(cat1, cat2, cat3);
+        Meowable cat1 = new Cat("Барсик");
+        Meowable cat2 = new Cat("Мурзик");
+        Meowable cat3 = new Cat("Пушик");
 
-        System.out.println("Количество мяуканий Мурзика: " + cat1.getMeowCount());
-        System.out.println("Количество мяуканий Барсика: " + cat2.getMeowCount());
-        System.out.println("Количество мяуканий Пушка: " + cat3.getMeowCount());
+        Meowable decoratedCat1 = new MeowCountDecorator(cat1);
+        Meowable decoratedCat2 = new MeowCountDecorator(cat2);
+        Meowable decoratedCat3 = new MeowCountDecorator(cat3);
+
+        MeowableCat catMeowAdapter  = new MeowableCat();
+        catMeowAdapter.makeAllMeow(decoratedCat1, decoratedCat2, decoratedCat3);
+
+        MeowCountDecorator countDecorator1 = (MeowCountDecorator) decoratedCat1;
+        MeowCountDecorator countDecorator2 = (MeowCountDecorator) decoratedCat2;
+        MeowCountDecorator countDecorator3 = (MeowCountDecorator) decoratedCat3;
+
+        System.out.println("Барсик мяукал " + countDecorator1.getMeowCount() + " раз");
+        System.out.println("Мурзик мяукал " + countDecorator2.getMeowCount() + " раз");
+        System.out.println("Пушик мяукал " + countDecorator3.getMeowCount() + " раз");
+
     }
 
     public void testGasStationAnalyzer() {
@@ -102,29 +115,22 @@ public class Main {
     }
 
     public void testFraction() {
-        IFraction fraction1 = new Fraction(3, 4);
-        IFraction fraction2 = new Fraction(-3, 4);
-        IFraction fraction3 = new Fraction(3, -4);
-        IFraction fraction4 = new Fraction(3, 4);
-
-        System.out.println("Дробь 1: " + fraction1);
+        IFraction fraction = FractionFactory.createFraction(4, 5);
+        IFraction fraction2 = FractionFactory.createFraction(1, 3);
+        System.out.println("Дробь 1: " + fraction);
         System.out.println("Дробь 2: " + fraction2);
-        System.out.println("Дробь 3: " + fraction3);
-        System.out.println("Дробь 4: " + fraction4);
+        System.out.println("Вещественное значение дроби 1: " + fraction.toDouble());
 
-        System.out.println("Вещественное значение дроби 1: " + fraction1.getRealValue());
-        System.out.println("Вещественное значение дроби 2: " + fraction2.getRealValue());
-        System.out.println("Вещественное значение дроби 3: " + fraction3.getRealValue());
-        System.out.println("Вещественное значение дроби 4: " + fraction4.getRealValue());
+        System.out.println("Дробь 1 равна дроби 2: " + fraction.equals(fraction2));
+        fraction.setNumerator(1);
+        System.out.println("Изменённая дробь 1: " + fraction);
+        System.out.println("Вещественное значение измененной дроби 1: " + fraction.toDouble());
 
-        System.out.println("Дробь 1 равна дроби 2: " + fraction1.equals(fraction2));
-        System.out.println("Дробь 1 равна дроби 3: " + fraction1.equals(fraction3));
-        System.out.println("Дробь 1 равна дроби 4: " + fraction1.equals(fraction4));
+        fraction.setDenominator(3);
+        System.out.println("Изменённая дробь 1: " + fraction);
+        System.out.println("Вещественное значение измененной дроби 1: " + fraction.toDouble());
 
-        fraction1.setNumerator(6);
-        fraction1.setDenominator(8);
-        System.out.println("Обновленная дробь 1: " + fraction1);
-        System.out.println("Вещественное значение обновленной дроби 1: " + fraction1.getRealValue());
+        System.out.println("Дробь 1 равна дроби 2: " + fraction.equals(fraction2));
     }
 
     public void testQueueBuilder() {
