@@ -41,6 +41,8 @@ public class Main {
         CommonList commonList = new CommonList();
         List<Integer> commonElements = commonList.getCommonElements(list1, list2);
 
+        System.out.println("Лист 1: " + list1);
+        System.out.println("Лист 2: " + list2);
         System.out.println("Список L: " + commonElements);
     }
 

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CommonList {
+public class CommonList implements ICommonList {
     public List<Integer> getCommonElements(List<Integer> list1, List<Integer> list2) {
         Set<Integer> set1 = new HashSet<>(list1);
         Set<Integer> set2 = new HashSet<>(list2);

@@ -25,7 +25,7 @@ public class Fraction  implements IFraction {
 
     public void setNumerator(int numerator) {
         this.numerator = numerator;
-        this.cachedValue = null; // Invalidate cache
+        this.cachedValue = null;
     }
 
     public int getDenominator() {
@@ -42,7 +42,7 @@ public class Fraction  implements IFraction {
         } else {
             this.denominator = denominator;
         }
-        this.cachedValue = null; // Invalidate cache
+        this.cachedValue = null;
     }
 
     public double getRealValue() {
