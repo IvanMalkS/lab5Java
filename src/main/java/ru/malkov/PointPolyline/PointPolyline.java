@@ -1,5 +1,6 @@
 package ru.malkov.PointPolyline;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ public class PointPolyline implements IPointPolyline {
     public List<Point> processPoints(List<Point> points) {
         return points.stream()
                 .distinct()
-                .sorted((p1, p2) -> Double.compare(p1.getX(), p2.getX()))
+                .sorted(Comparator.comparingDouble(Point::getX))
                 .map(p -> new Point(p.getX(), Math.abs(p.getY())))
                 .collect(Collectors.toList());
     }
