@@ -1,6 +1,6 @@
 package ru.malkov.Cat;
 
-public class Cat {
+public class Cat implements  Meowable{
     private String name;
     private int meowCount;
 

@@ -1,6 +1,7 @@
 package ru.malkov;
 
 import ru.malkov.Cat.Cat;
+import ru.malkov.Cat.Meowable;
 import ru.malkov.Cat.MeowableCat;
 import ru.malkov.CommonList.CommonList;
 import ru.malkov.Fraction.Fraction;
@@ -47,9 +48,9 @@ public class Main {
     }
 
     public void testCatMeow() {
-        Cat cat1 = new Cat("Мурзик");
-        Cat cat2 = new Cat("Барсик");
-        Cat cat3 = new Cat("Пушок");
+        Meowable cat1 = new Cat("Мурзик");
+        Meowable cat2 = new Cat("Барсик");
+        Meowable cat3 = new Cat("Пушок");
 
         MeowableCat.makeAllMeow(cat1, cat2, cat3);
 
