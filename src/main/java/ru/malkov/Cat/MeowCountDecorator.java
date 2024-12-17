@@ -1,7 +1,7 @@
 package ru.malkov.Cat;
 
 public class MeowCountDecorator implements Meowable {
-    private Meowable decoratedCat;
+    private final Meowable decoratedCat;
     private int meowCount = 0;
 
     public MeowCountDecorator(Meowable decoratedCat) {
